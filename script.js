@@ -41,46 +41,76 @@ function displayQuestion() {
   for(let i = 0; i < questions.length; i++) {
     if(questions[i].questionNumber === questionNumber) {
       const question =  questions[i].question;
-      const options = questions[i].options;
+      let options = questions[i].options;
+      // questionOptions.innerHTML = `
+      //   <h1 class="question">${question}</h1>
+      //   <p class="options" draggable="true" ondragstart="dragStart()" ondragend="dragEnd()" data-option="${options[i]}">${options[i]}</p>
+      //   <p class="options" draggable="true" ondragstart="dragStart()" ondragend="dragEnd()" data-option="${options[i + 1]}">${options[i + 1]}</p>
+      //   <p class="options" draggable="true" ondragstart="dragStart()" ondragend="dragEnd()" data-option="${options[i + 2]}">${options[i + 2]}</p>
+      //   <p class="options" draggable="true" ondragstart="dragStart()" ondragend="dragEnd()" data-option="${options[i + 3]}">${options[i + 3]}</p>
+      //   `;
       questionOptions.innerHTML = `
         <h1 class="question">${question}</h1>
-        <p class="options" draggable="true" ondragstart="dragStart()" ondragend="dragEnd()" data-option="${options[i]}">${options[i]}</p>
-        <p class="options" draggable="true" ondragstart="dragStart()" ondragend="dragEnd()" data-option="${options[i + 1]}">${options[i + 1]}</p>
-        <p class="options" draggable="true" ondragstart="dragStart()" ondragend="dragEnd()" data-option="${options[i + 2]}">${options[i + 2]}</p>
-        <p class="options" draggable="true" ondragstart="dragStart()" ondragend="dragEnd()" data-option="${options[i + 3]}">${options[i + 3]}</p>
+        <p class="options" draggable="true" data-option="${options[i]}">${options[i]}</p>
+        <p class="options" draggable="true" data-option="${options[i + 1]}">${options[i + 1]}</p>
+        <p class="options" draggable="true" data-option="${options[i + 2]}">${options[i + 2]}</p>
+        <p class="options" draggable="true" data-option="${options[i + 3]}">${options[i + 3]}</p>
         `;
       // console.log('working');
     }
+    // document.querySelectorAll('.options')[i].addEventListener('dragstart', dragStart);
+    // document.querySelectorAll('.options')[i].addEventListener('dragend', dragEnd);
   }
+  //for(let i = 0; i < questions.length; i++) {
+    // document.querySelectorAll('.options')[0].addEventListener('dragstart', dragStart);
+    // document.querySelectorAll('.options')[0].addEventListener('dragend', dragEnd);
+  //}
+
+  let options = document.querySelectorAll('.options');
+  options.forEach((option) => {
+    option.addEventListener('dragstart', dragStart);
+    option.addEventListener('dragend', dragEnd);
+  });
+  //addingListeners();
 }
+
+// function addingListeners() {
+//   let options = document.querySelectorAll('.options');
+//   options.forEach((option) => {
+//     option.addEventListener('dragstart', dragStart);
+//     option.addEventListener('dragend', dragEnd);
+//   });
+//   console.log(options);
+// }
 
 //Drag functions
 function dragStart() {
-
+  console.log(this);
 }
 
-function dragEnd() {
-
+function dragEnd(e) {
+  // console.log(this);
 }
 
-function dragOver() {
-
+function dragOver(e) {
+  // e.preventDefault();
+  // console.log(this);
 }
 
 function dragEnter() {
-
+// console.log(this);
 }
 
 function dragLeave() {
-
+// console.log(this);
 }
 
 function dragDrop() {
-
+// console.log(this);
 }
 
 function startQuiz() {
     fetchQuestions();
-    setTimeout(() => header.classList.add('hide'), 300);
-    // header.classList.add('hide');
+    // setTimeout(() => header.classList.add('hide'), 1000);
+    header.classList.add('hide');
 }
