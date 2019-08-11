@@ -3,6 +3,7 @@ body, html {
   padding: 0;
   box-sizing: border-box;
   font-family: 'Grenze', serif;
+  overflow: hidden;
 }
 
 * {
@@ -11,7 +12,7 @@ body, html {
 
 .container {
   max-width: 90%;
-  border: 1px solid;
+  /* border: 1px solid; */
   margin: 0 auto;
 }
 
@@ -30,12 +31,16 @@ body, html {
   padding: 0.2rem 1rem;
   border: 1px solid transparent;
   border-radius: 1rem;
-  background: red;
+  /* background: red; */
   cursor: pointer;
 }
 
 .hide {
   display: none;
+}
+
+.visible {
+  display: block !important;
 }
 
 .questions-options {
@@ -62,15 +67,40 @@ body, html {
   width: 240px;
   max-width: 50%;
   text-align: center;
+  cursor: pointer;
 }
 
 .answer {
+  position: relative;
   margin: 30px auto;
   padding: 0.5rem 1rem;
   border-radius: 1rem;
   border: 1px solid;
   width: 260px;
   max-width: 52%;
-  height: 70px;
+  height: 100px;
   text-align: center;
+  display: none;
+}
+
+.invisible {
+  visibility: hidden;
+  /* font-size: 1.4rem;
+  margin: 10px auto;
+  padding: 0.5rem 1rem;
+  /* border-radius: 1rem; */
+  /* border: 1px solid transparent;
+  width: 240px;
+  max-width: 50%;
+  text-align: center;
+  color: transparent; */
+}
+
+.answer .options {
+  position: absolute;
+  margin: 0 auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px 0;
 }

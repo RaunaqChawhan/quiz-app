@@ -51,10 +51,10 @@ function displayQuestion() {
       //   `;
       questionOptions.innerHTML = `
         <h1 class="question">${question}</h1>
-        <p class="options" draggable="true" data-option="${options[i]}">${options[i]}</p>
-        <p class="options" draggable="true" data-option="${options[i + 1]}">${options[i + 1]}</p>
-        <p class="options" draggable="true" data-option="${options[i + 2]}">${options[i + 2]}</p>
-        <p class="options" draggable="true" data-option="${options[i + 3]}">${options[i + 3]}</p>
+        <p class="options" id="option-1" draggable="true" data-option="${options[i]}">${options[i]}</p>
+        <p class="options" id="option-2"  draggable="true" data-option="${options[i + 1]}">${options[i + 1]}</p>
+        <p class="options" id="option-3"  draggable="true" data-option="${options[i + 2]}">${options[i + 2]}</p>
+        <p class="options" id="option-4"  draggable="true" data-option="${options[i + 3]}">${options[i + 3]}</p>
         `;
       // console.log('working');
     }
@@ -72,6 +72,7 @@ function displayQuestion() {
     option.addEventListener('dragend', dragEnd);
   });
   //addingListeners();
+  answer.classList.add('visible');
 }
 
 // function addingListeners() {
@@ -84,33 +85,53 @@ function displayQuestion() {
 // }
 
 //Drag functions
-function dragStart() {
-  console.log(this);
+function dragStart(e) {
+  // console.log(this);
+  e.dataTransfer.setData("text", e.target.id);
+  setTimeout(() => (this.classList.add('invisible')), 0);
 }
 
-function dragEnd(e) {
-  // console.log(this);
+function dragEnd() {
+  //console.log(this);
+  this.className = 'options';
 }
 
 function dragOver(e) {
-  // e.preventDefault();
+  e.preventDefault();
   // console.log(this);
 }
 
-function dragEnter() {
+function dragEnter(e) {
+  e.preventDefault();
+  // let data = e.dataTransfer.getData("text");
+  // console.log(e.currentTarget);
+  //hovered class - dashed border and background
 // console.log(this);
 }
 
 function dragLeave() {
+  //we don't want hovered anymore hence do empty
 // console.log(this);
+  this.style.borderColor = 'black';
+  console.log('leave');
 }
 
-function dragDrop() {
-// console.log(this);
+function dragDrop(e) {
+  let data = e.dataTransfer.getData("text");
+  let element = document.getElementById(`${data}`);
+  if(element.dataset.option === questions[questionNumber - 1].correct_answer) {
+    this.append(document.getElementById(`${data}`));
+    console.log('working');
+  } else {
+    // this.style.borderColor = 'red';
+  }
+  // console.log(element.dataset.option);
+  // console.log(element);
+  // console.log('drop');
 }
 
 function startQuiz() {
     fetchQuestions();
-    // setTimeout(() => header.classList.add('hide'), 1000);
-    header.classList.add('hide');
+    setTimeout(() => header.classList.add('hide'), 1000);
+    // header.classList.add('hide');
 }
