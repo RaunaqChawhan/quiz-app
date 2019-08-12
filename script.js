@@ -2,11 +2,13 @@ const header = document.querySelector('.intro');
 const startButton = document.getElementById('start-button');
 const questionOptions = document.querySelector('.questions-options');
 const answer = document.querySelector('.answer');
+const nextQuestion = document.querySelector('.next-question');
 let questions;
 let questionNumber = 1;
 
 //start-quiz
 startButton.addEventListener('click', startQuiz);
+nextQuestion.addEventListener('click', nextQuestionDisplay);
 answer.addEventListener('dragover', dragOver);
 answer.addEventListener('dragenter', dragEnter);
 answer.addEventListener('dragleave', dragLeave);
@@ -42,6 +44,7 @@ function displayQuestion() {
     if(questions[i].questionNumber === questionNumber) {
       const question =  questions[i].question;
       let options = questions[i].options;
+      console.log(options);
       // questionOptions.innerHTML = `
       //   <h1 class="question">${question}</h1>
       //   <p class="options" draggable="true" ondragstart="dragStart()" ondragend="dragEnd()" data-option="${options[i]}">${options[i]}</p>
@@ -51,10 +54,10 @@ function displayQuestion() {
       //   `;
       questionOptions.innerHTML = `
         <h1 class="question">${question}</h1>
-        <p class="options" id="option-1" draggable="true" data-option="${options[i]}">${options[i]}</p>
-        <p class="options" id="option-2"  draggable="true" data-option="${options[i + 1]}">${options[i + 1]}</p>
-        <p class="options" id="option-3"  draggable="true" data-option="${options[i + 2]}">${options[i + 2]}</p>
-        <p class="options" id="option-4"  draggable="true" data-option="${options[i + 3]}">${options[i + 3]}</p>
+        <p class="options" id="option-1" draggable="true" data-option="${options[0]}">${options[0]}</p>
+        <p class="options" id="option-2"  draggable="true" data-option="${options[1]}">${options[1]}</p>
+        <p class="options" id="option-3"  draggable="true" data-option="${options[2]}">${options[2]}</p>
+        <p class="options" id="option-4"  draggable="true" data-option="${options[3]}">${options[3]}</p>
         `;
       // console.log('working');
     }
@@ -121,6 +124,7 @@ function dragDrop(e) {
   let element = document.getElementById(`${data}`);
   if(element.dataset.option === questions[questionNumber - 1].correct_answer) {
     this.append(document.getElementById(`${data}`));
+    nextQuestion.innerHTML = '<button type="button" id="next-button">Continue</button>'
     console.log('working');
   } else {
     // this.style.borderColor = 'red';
@@ -132,6 +136,15 @@ function dragDrop(e) {
 
 function startQuiz() {
     fetchQuestions();
-    setTimeout(() => header.classList.add('hide'), 1000);
-    // header.classList.add('hide');
+    // setTimeout(() => header.classList.add('hide'), 1000);
+    header.classList.add('hide');
+}
+
+function nextQuestionDisplay() {
+  questionNumber++;
+  if(questionNumber <= questions.length) {
+    answer.removeChild(document.querySelector('.answer .options'));
+    displayQuestion();
+    document.getElementById('next-button').classList.add('hide');
+  }
 }
