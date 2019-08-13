@@ -20,7 +20,7 @@ body, html {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 95vh;
   /* border: 1px solid; */
 }
 
@@ -109,4 +109,10 @@ body, html {
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 10px 0;
+}
+
+#restart-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
