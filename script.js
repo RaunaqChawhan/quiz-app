@@ -55,9 +55,9 @@ function displayQuestion() {
       questionOptions.innerHTML = `
         <h1 class="question">${question}</h1>
         <p class="options" id="option-1" draggable="true" data-option="${options[0]}">${options[0]}</p>
-        <p class="options" id="option-2"  draggable="true" data-option="${options[1]}">${options[1]}</p>
-        <p class="options" id="option-3"  draggable="true" data-option="${options[2]}">${options[2]}</p>
-        <p class="options" id="option-4"  draggable="true" data-option="${options[3]}">${options[3]}</p>
+        <p class="options" id="option-2" draggable="true" data-option="${options[1]}">${options[1]}</p>
+        <p class="options" id="option-3" draggable="true" data-option="${options[2]}">${options[2]}</p>
+        <p class="options" id="option-4" draggable="true" data-option="${options[3]}">${options[3]}</p>
         `;
       // console.log('working');
     }
@@ -124,7 +124,20 @@ function dragDrop(e) {
   let element = document.getElementById(`${data}`);
   if(element.dataset.option === questions[questionNumber - 1].correct_answer) {
     this.append(document.getElementById(`${data}`));
-    nextQuestion.innerHTML = '<button type="button" id="next-button">Continue</button>'
+    if(questionNumber === questions.length) {
+      nextQuestion.innerHTML = '<button type="button" id="restart-button">Restart</button>';
+      while(answer.firstChild) {
+        answer.removeChild(answer.firstChild);
+      }
+      while(questionOptions.firstChild) {
+        questionOptions.removeChild(questionOptions.firstChild);
+      }
+      answer.classList.add('hide');
+      answer.classList.remove('visible');
+    } else {
+      nextQuestion.innerHTML = '<button type="button" id="next-button">Continue</button>';
+    }
+    // nextQuestion.innerHTML = '<button type="button" id="next-button">Continue</button>'
     console.log('working');
   } else {
     // this.style.borderColor = 'red';
@@ -146,5 +159,13 @@ function nextQuestionDisplay() {
     answer.removeChild(document.querySelector('.answer .options'));
     displayQuestion();
     document.getElementById('next-button').classList.add('hide');
+  } else {
+    // answer.removeChild(document.querySelector('.answer .options'));
+    // while(questionOptions.firstChild) {
+    //   questionOptions.removeChild(questionOptions.firstChild);
+    // }
+    questionNumber = 1;
+    fetchQuestions();
+    document.getElementById('restart-button').classList.add('hide');
   }
 }
