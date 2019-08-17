@@ -33,6 +33,19 @@ function transferQuestions(questionSet) {
       questions[i].options.push(...questions[i].incorrect_answers);
       let index = Math.round(Math.random() * 3);
       questions[i].options.splice(index, 0, questions[i].correct_answer);
+
+      //Decode character entities present in options array
+      questions[i].options = questions[i].options.map((option) => {
+        let element = document.createElement('textarea');
+        element.innerHTML = option;
+        console.log('inside map');
+        return element.value;
+      });
+      
+      //Decode character entities present in correct_answer property value
+      let correctAnswerElement = document.createElement('textarea');
+      correctAnswerElement.innerHTML = questions[i].correct_answer;
+      questions[i].correct_answer = correctAnswerElement.value;
     }
     displayQuestion();
     console.log(questions);
