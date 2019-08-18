@@ -6,7 +6,7 @@ const nextQuestion = document.querySelector('.next-question');
 let questions;
 let questionNumber = 1;
 
-//start-quiz
+//Event listeners
 startButton.addEventListener('click', startQuiz);
 nextQuestion.addEventListener('click', nextQuestionDisplay);
 answer.addEventListener('dragover', dragOver);
@@ -41,11 +41,17 @@ function transferQuestions(questionSet) {
         console.log('inside map');
         return element.value;
       });
-      
+
+      questions[i].options = questions[i].options.map((option) => {
+        return option.replace(/"/g, "'");
+      });
+
       //Decode character entities present in correct_answer property value
       let correctAnswerElement = document.createElement('textarea');
       correctAnswerElement.innerHTML = questions[i].correct_answer;
       questions[i].correct_answer = correctAnswerElement.value;
+
+      questions[i].correct_answer = questions[i].correct_answer.replace(/"/g, "'");
     }
     displayQuestion();
     console.log(questions);
@@ -102,19 +108,19 @@ function displayQuestion() {
 
 //Drag functions
 function dragStart(e) {
-  // console.log(this);
+  console.log('start');
   e.dataTransfer.setData("text", e.target.id);
   setTimeout(() => (this.classList.add('invisible')), 0);
 }
 
 function dragEnd() {
-  //console.log(this);
+  console.log('end');
   this.className = 'options';
 }
 
 function dragOver(e) {
   e.preventDefault();
-  // console.log(this);
+  console.log('over');
 }
 
 function dragEnter(e) {
@@ -122,13 +128,13 @@ function dragEnter(e) {
   // let data = e.dataTransfer.getData("text");
   // console.log(e.currentTarget);
   //hovered class - dashed border and background
-// console.log(this);
+console.log('enter');
 }
 
 function dragLeave() {
   //we don't want hovered anymore hence do empty
 // console.log(this);
-  this.style.borderColor = 'black';
+  // this.style.borderColor = 'black';
   console.log('leave');
 }
 
@@ -157,7 +163,7 @@ function dragDrop(e) {
   }
   // console.log(element.dataset.option);
   // console.log(element);
-  // console.log('drop');
+  console.log('drop');
 }
 
 function startQuiz() {

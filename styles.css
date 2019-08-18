@@ -2,7 +2,9 @@ body, html {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Grenze', serif;
+  /*font-family: 'Grenze', serif;*/
+  font-family: 'Lexend Deca', sans-serif;
+  background: #130f40;
   /* overflow: hidden; */
 }
 
@@ -24,21 +26,35 @@ body, html {
   /* border: 1px solid; */
 }
 
-.next-question {
+/* .next-question {
   width: 100%;
   display: inline-flex;
   justify-content: center;
-}
+} */
 
 #start-button, #next-button, #restart-button {
-  font-family: 'Grenze', serif;
+  font-family: 'Lexend Deca', sans-serif;
   font-size: 2rem;
   font-weight: 700;
   padding: 0.2rem 1rem;
   border: 1px solid transparent;
-  border-radius: 1rem;
+  position: relative;
   /* background: red; */
   cursor: pointer;
+  background: #ED4C67;
+  color: #FDA7DF;
+}
+
+#next-button {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#start-button:hover, #next-button:hover, #restart-button:hover {
+  background: #FDA7DF;
+  color: #ED4C67;
+  transition: 0.5s;
 }
 
 .hide {
@@ -54,6 +70,7 @@ body, html {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: #FDA7DF;
   /* height: 100vh; */
 }
 
@@ -62,14 +79,15 @@ body, html {
   margin: 20px auto;
   text-align: center;
   width: 95%;
+  /* color: #FDA7DF; */
 }
 
 .options {
   font-size: 1.4rem;
   margin: 10px auto;
   padding: 0.5rem 1rem;
-  border-radius: 1rem;
-  border: 1px solid;
+  /* border-radius: 1rem; */
+  border: 1px solid #FDA7DF;
   width: 240px;
   max-width: 90%;
   text-align: center;
@@ -80,8 +98,8 @@ body, html {
   position: relative;
   margin: 30px auto;
   padding: 0.5rem 1rem;
-  border-radius: 1rem;
-  border: 1px solid;
+  /* border-radius: 1rem; */
+  border: 1px solid #FDA7DF;
   width: 260px;
   max-width: 52%;
   height: 100px;
@@ -109,6 +127,7 @@ body, html {
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 10px 0;
+  color: #FDA7DF;
 }
 
 #restart-button {
